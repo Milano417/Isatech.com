@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISATech - Institut Supérieur d’Application et de Technologie | Abidjan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            sky: '#00BFFF',
+                            dark: '#0B1F33',
+                            light: '#F4F6F8',
+                            text: '#1F2937',
+                            hover: '#00A3E0',
+                            navy: '#061321'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #00BFFF 0%, #0B1F33 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-slide {
+            transition: opacity 0.8s ease-in-out;
+        }
+        .nav-link.active {
+            color: #00BFFF;
+            font-weight: 600;
+            border-bottom: 2px solid #00BFFF;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F6F8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00BFFF;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-[#F4F6F8] text-[#1F2937] font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-dark text-white text-xs py-2 px-4 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span><i class="fa-solid fa-location-dot text-brand-sky mr-1"></i> Abidjan, Koumassi - Côte d'Ivoire</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-clock text-brand-sky mr-1"></i> Lun - Ven: 08h00 - 18h00</span>
+                <span class="hidden lg:inline text-brand-sky font-semibold"><i class="fa-solid fa-bullhorn mr-1"></i> Inscriptions Ouvertes 2026-2027</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="tel:+2250000000000" class="hover:text-brand-sky transition"><i class="fa-solid fa-phone mr-1"></i> [À COMPLÉTER]</a>
+                <button onclick="toggleAdminView()" class="bg-brand-sky/20 hover:bg-brand-sky text-brand-sky hover:text-brand-dark px-2.5 py-0.5 rounded text-xs font-semibold transition flex items-center gap-1 border border-brand-sky/40">
+                    <i class="fa-solid fa-user-gear"></i> <span id="adminBtnText">Espace Admin</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- LOGO -->
+            <a href="#" onclick="showSection('home')" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center text-brand-sky font-heading font-extrabold text-2xl shadow-md group-hover:scale-105 transition">
+                    iT
+                </div>
+                <div>
+                    <span class="font-heading font-extrabold text-2xl text-brand-dark tracking-tight flex items-center gap-1">
+                        ISATech <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
+                    </span>
+                    <span class="block text-[10px] text-gray-500 font-medium tracking-wider uppercase">Institut Supérieur d'Application & Techno</span>
+                </div>
+            </a>
+
+            <!-- DESKTOP NAVIGATION -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-gray-700">
+                <button onclick="showSection('home')" class="nav-link py-2 hover:text-brand-sky transition active" id="nav-home">ACCUEIL</button>
+                <button onclick="showSection('about')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-about">À PROPOS</button>
+                <button onclick="showSection('formations')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-formations">FORMATIONS</button>
+                <button onclick="showSection('admission')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-admission">ADMISSION</button>
+                <button onclick="showSection('life')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-life">VIE ÉTUDIANTE</button>
+                <button onclick="showSection('news')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-news">ACTUALITÉS</button>
+                <button onclick="showSection('contact')" class="nav-link py-2 hover:text-brand-sky transition" id="nav-contact">CONTACT</button>
+            </nav>
+
+            <!-- CTA BUTTONS & SEARCH -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <button onclick="openSearchModal()" class="p-2 text-gray-500 hover:text-brand-sky transition rounded-full hover:bg-gray-100" title="Rechercher">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button onclick="showSection('admission')" class="bg-brand-sky hover:bg-brand-hover text-brand-dark font-semibold px-5 py-2.5 rounded-lg text-sm shadow-md transition transform active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> CANDIDATER
+                </button>
+            </div>
+
+            <!-- MOBILE MENU BUTTON -->
+            <div class="lg:hidden flex items-center space-x-2">
+                <button onclick="openSearchModal()" class="p-2 text-gray-600"><i class="fa-solid fa-magnifying-glass text-xl"></i></button>
+                <button onclick="toggleMobileMenu()" class="p-2 text-brand-dark focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU DROPDOWN -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
+            <button onclick="showSection('home'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Accueil</button>
+            <button onclick="showSection('about'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">À Propos</button>
+            <button onclick="showSection('formations'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Formations (8 Filières)</button>
+            <button onclick="showSection('admission'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Admissions</button>
+            <button onclick="showSection('life'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Vie Étudiante</button>
+            <button onclick="showSection('news'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Actualités & Événements</button>
+            <button onclick="showSection('contact'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-gray-700 hover:text-brand-sky">Contact</button>
+            <div class="pt-3 border-t border-gray-100 flex flex-col gap-2">
+                <button onclick="showSection('admission'); toggleMobileMenu()" class="w-full bg-brand-sky text-brand-dark py-2.5 rounded-lg font-semibold text-center">
+                    Candidater Maintenant
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- GLOBAL SEARCH MODAL -->
+    <div id="searchModal" class="fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative">
+            <button onclick="closeSearchModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-400 text-lg"></i>
+                <input type="text" id="globalSearchInput" onkeyup="performGlobalSearch()" placeholder="Rechercher une formation, une actualité, une admission..." class="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-sky text-gray-800 font-medium">
+            </div>
+            <div id="searchResults" class="mt-4 max-h-80 overflow-y-auto space-y-2">
+                <p class="text-xs text-gray-400 text-center py-4">Saisissez un mot-clé (ex: "IDA", "Comptabilité", "Inscription")</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow">
+
+        <!-- ================================================= -->
+        <!-- SECTION 1: ACCUEIL (HOME) -->
+        <!-- ================================================= -->
+        <div id="sec-home" class="view-section">
+            
+            <!-- HERO CAROUSEL -->
+            <section class="relative bg-brand-dark text-white overflow-hidden min-h-[580px] flex items-center">
+                <!-- Slide Images / Background overlays -->
+                <div id="carouselSlides" class="absolute inset-0">
+                    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" style="background-image: linear-gradient(to right, rgba(11,31,51,0.95), rgba(11,31,51,0.6)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: linear-gradient(to right, rgba(11,31,51,0.95), rgba(11,31,51,0.6)), url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1600&auto=format&fit=crop');"></div>
+                    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: linear-gradient(to right, rgba(11,31,51,0.95), rgba(11,31,51,0.6)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop');"></div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+                    <div class="max-w-3xl">
+                        <div class="inline-flex items-center gap-2 bg-brand-sky/20 border border-brand-sky/40 text-brand-sky px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
+                            <i class="fa-solid fa-graduation-cap"></i> Institut Supérieur d’Application et de Technologie
+                        </div>
+                        <h1 id="heroTitle" class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight mb-4">
+                            Construisons aujourd’hui les compétences de demain.
+                        </h1>
+                        <p class="text-brand-sky font-heading font-semibold text-xl mb-6 italic">
+                            « L’excellence demeure notre credo »
+                        </p>
+                        <p id="heroDesc" class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">
+                            Établissement d'enseignement supérieur de référence à Abidjan Koumassi. Nous combinons rigueur académique, technologies innovantes et apprentissage pratique.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="showSection('formations')" class="bg-brand-sky hover:bg-brand-hover text-brand-dark font-bold px-7 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2 text-base">
+                                Découvrir nos formations <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="showSection('admission')" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-7 py-3.5 rounded-xl transition backdrop-blur-md text-base">
+                                Déposer une candidature
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Indicators -->
+                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+                    <button onclick="setSlide(0)" class="slide-dot w-3 h-3 rounded-full bg-brand-sky transition-all duration-300"></button>
+                    <button onclick="setSlide(1)" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all duration-300"></button>
+                    <button onclick="setSlide(2)" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all duration-300"></button>
+                </div>
+            </section>
+
+            <!-- STATS SECTION -->
+            <section class="py-12 bg-white border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div class="p-4 border-r border-gray-100 last:border-0">
+                            <span class="block font-heading font-extrabold text-3xl sm:text-4xl text-brand-dark mb-1">2001</span>
+                            <span class="text-xs sm:text-sm text-gray-500 font-medium">Année de création</span>
+                        </div>
+                        <div class="p-4 border-r border-gray-100 last:border-0">
+                            <span class="block font-heading font-extrabold text-3xl sm:text-4xl text-brand-sky mb-1">+20 ans</span>
+                            <span class="text-xs sm:text-sm text-gray-500 font-medium">D'expérience académique</span>
+                        </div>
+                        <div class="p-4 border-r border-gray-100 last:border-0">
+                            <span class="block font-heading font-extrabold text-3xl sm:text-4xl text-brand-dark mb-1">+XX</span>
+                            <span class="text-xs sm:text-sm text-gray-500 font-medium">Étudiants formés [À COMPLÉTER]</span>
+                        </div>
+                        <div class="p-4">
+                            <span class="block font-heading font-extrabold text-3xl sm:text-4xl text-brand-sky mb-1">8 Filières</span>
+                            <span class="text-xs sm:text-sm text-gray-500 font-medium">Formations homologuées</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- POURQUOI ISATECH ? -->
+            <section class="py-16 bg-[#F4F6F8]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-brand-dark mb-4">Pourquoi choisir ISATech ?</h2>
+                        <p class="text-gray-600 text-base">Un cadre d'apprentissage moderne conçu pour assurer votre insertion professionnelle rapide et durable.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Formation de qualité</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Des programmes conformes aux exigences académiques et mis à jour selon les évolutions du marché.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Approche Pratique</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Une formation axée sur l'application conjointe des travaux pratiques et projets réels en entreprise.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Culture de l'Innovation</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Infrastructures technologiques et sensibilisation active aux nouveaux métiers du numérique.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Accompagnement Personnalisé</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Encadrement rigoureux par un corps professoral expérimenté et disponible pour l'étudiant.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Insertion Professionnelle</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Préparation ciblée aux besoins des entreprises et aide à la recherche de stages académiques.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+                            <div class="w-14 h-14 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Vie de Campus Dynamique</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Une communauté étudiante engagée, des clubs d'intérêt et des événements culturels stimulants.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NOS FILIÈRES VEDETTES (PREVIEW) -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                        <div>
+                            <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Catalogue Officiel</span>
+                            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-brand-dark mt-1">Nos 8 Filières d'Excellence</h2>
+                        </div>
+                        <button onclick="showSection('formations')" class="mt-4 md:mt-0 text-brand-dark hover:text-brand-sky font-semibold text-sm flex items-center gap-2 group">
+                            Consulter tout le catalogue <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                        </button>
+                    </div>
+
+                    <!-- 8 Filières Grid container populated by JS -->
+                    <div id="homeFilieresGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+                </div>
+            </section>
+
+            <!-- CALL TO ACTION CANDIDATURE -->
+            <section class="py-16 bg-brand-dark text-white relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-brand-sky/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl mb-4">Prêt à rejoindre l'excellence académique à ISATech ?</h2>
+                    <p class="text-gray-300 text-base max-w-2xl mx-auto mb-8">Les inscriptions pour l'année académique sont ouvertes. Soumettez votre dossier en ligne en quelques minutes.</p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="showSection('admission')" class="bg-brand-sky hover:bg-brand-hover text-brand-dark font-bold px-8 py-4 rounded-xl shadow-lg transition">
+                            Déposer ma candidature <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 2: NOS FORMATIONS (CATALOGUE & FILTRES) -->
+        <!-- ================================================= -->
+        <div id="sec-formations" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header -->
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Catalogue Académique</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">Nos Filières & Formations</h1>
+                    <p class="text-gray-600">Des parcours complets et professionnalisants conçus pour développer les compétences indispensables au marché de l'emploi.</p>
+                </div>
+
+                <!-- Filters & Search Bar -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200 mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+                    <!-- Search input -->
+                    <div class="relative w-full md:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400"></i>
+                        <input type="text" id="filiereSearchInput" onkeyup="filterFilieres()" placeholder="Rechercher une filière..." class="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                    </div>
+
+                    <!-- Category Buttons -->
+                    <div class="flex flex-wrap gap-2 w-full md:w-auto justify-start md:justify-end" id="filterCategoryButtons">
+                        <button onclick="setFilterCategory('ALL')" class="cat-btn active bg-brand-dark text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold">Toutes</button>
+                        <button onclick="setFilterCategory('Informatique & Technologies')" class="cat-btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-3.5 py-1.5 rounded-lg text-xs font-semibold">Informatique</button>
+                        <button onclick="setFilterCategory('Finance & Gestion')" class="cat-btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-3.5 py-1.5 rounded-lg text-xs font-semibold">Finance & Gestion</button>
+                        <button onclick="setFilterCategory('Commerce & Management')" class="cat-btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-3.5 py-1.5 rounded-lg text-xs font-semibold">Commerce</button>
+                        <button onclick="setFilterCategory('Communication & Design')" class="cat-btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-3.5 py-1.5 rounded-lg text-xs font-semibold">Communication</button>
+                    </div>
+                </div>
+
+                <!-- Filieres Grid -->
+                <div id="fullFilieresGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 3: DÉTAIL D'UNE FILIÈRE (DETAIL VIEW) -->
+        <!-- ================================================= -->
+        <div id="sec-filiere-detail" class="view-section hidden py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Back Link -->
+                <button onclick="showSection('formations')" class="mb-6 inline-flex items-center text-sm font-semibold text-brand-dark hover:text-brand-sky transition">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Retour à la liste des formations
+                </button>
+
+                <div id="filiereDetailContent">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 4: À PROPOS (ABOUT) -->
+        <!-- ================================================= -->
+        <div id="sec-about" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <!-- Header -->
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Institution</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">À Propos d'ISATech</h1>
+                    <p class="text-gray-600 text-lg">Institut Supérieur d’Application et de Technologie</p>
+                </div>
+
+                <!-- History Section -->
+                <div class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-gray-100">
+                    <div>
+                        <span class="text-brand-sky font-bold text-sm uppercase tracking-wider">Notre Histoire</span>
+                        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-brand-dark mt-2 mb-4">Fondé le 06 Septembre 2001</h2>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Créé en 2001 à Koumassi (Abidjan, Côte d'Ivoire), l'<strong>ISATech</strong> s'est imposé comme un acteur clé de la formation professionnelle supérieure.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            Depuis plus de deux décennies, notre établissement s'est engagé à fournir un enseignement axé sur la pratique et les compétences réelles requises par les entreprises ivoiriennes et internationales.
+                        </p>
+                        <div class="p-4 bg-brand-dark text-white rounded-2xl border-l-4 border-brand-sky">
+                            <p class="font-heading font-bold text-lg italic">« L’excellence demeure notre credo »</p>
+                            <p class="text-xs text-brand-sky mt-1">Slogan officiel d'ISATech</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop" alt="Campus ISATech" class="rounded-2xl shadow-lg object-cover w-full h-80 sm:h-96">
+                    </div>
+                </div>
+
+                <!-- Vision & Mission & Valeurs -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark mb-2">Notre Vision</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Devenir le pôle d'excellence de référence en Côte d'Ivoire pour la formation technologique et managériale appliquée.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark mb-2">Notre Mission</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Former des diplômés directement opérationnels, intègres et dotés d'un fort esprit d'initiative professionnelle.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark mb-2">Nos Valeurs</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Excellence, Discipline, Innovation, Intégrité, Responsabilité et Professionnalisme au quotidien.</p>
+                    </div>
+                </div>
+
+                <!-- Équipe & Direction -->
+                <div>
+                    <div class="text-center mb-10">
+                        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-brand-dark">Équipe Dirigeante & Pédagogique</h2>
+                        <p class="text-gray-500 text-sm mt-1">Des professionnels engagés pour l'encadrement des étudiants</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-brand-sky">
+                            <h4 class="font-heading font-bold text-lg text-brand-dark">[Nom du Directeur]</h4>
+                            <p class="text-brand-sky font-semibold text-xs uppercase mb-2">Direction Générale</p>
+                            <p class="text-gray-500 text-xs">[Information officielle à renseigner]</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-brand-sky">
+                            <h4 class="font-heading font-bold text-lg text-brand-dark">[Nom du Directeur Académique]</h4>
+                            <p class="text-brand-sky font-semibold text-xs uppercase mb-2">Direction Académique</p>
+                            <p class="text-gray-500 text-xs">[Information officielle à renseigner]</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-brand-sky">
+                            <h4 class="font-heading font-bold text-lg text-brand-dark">[Responsable Pédagogique]</h4>
+                            <p class="text-brand-sky font-semibold text-xs uppercase mb-2">Scolarité & Examens</p>
+                            <p class="text-gray-500 text-xs">[Information officielle à renseigner]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 5: ADMISSION & CANDIDATURE -->
+        <!-- ================================================= -->
+        <div id="sec-admission" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <!-- Header -->
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Inscriptions & Dossiers</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">Rejoindre ISATech</h1>
+                    <p class="text-gray-600 text-base">Suivez les étapes simples pour déposer votre dossier de candidature en ligne.</p>
+                </div>
+
+                <!-- Process Steps -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200">
+                        <span class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full font-bold flex items-center justify-center mx-auto mb-3">1</span>
+                        <h4 class="font-bold text-sm text-brand-dark">Choisir sa formation</h4>
+                        <p class="text-xs text-gray-500 mt-1">Sélectionnez la filière adaptée à vos objectifs.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200">
+                        <span class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full font-bold flex items-center justify-center mx-auto mb-3">2</span>
+                        <h4 class="font-bold text-sm text-brand-dark">Conditions d'accès</h4>
+                        <p class="text-xs text-gray-500 mt-1">Vérifiez les prérequis académiques.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200">
+                        <span class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full font-bold flex items-center justify-center mx-auto mb-3">3</span>
+                        <h4 class="font-bold text-sm text-brand-dark">Formulaire</h4>
+                        <p class="text-xs text-gray-500 mt-1">Renseignez vos données personnelles.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200">
+                        <span class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full font-bold flex items-center justify-center mx-auto mb-3">4</span>
+                        <h4 class="font-bold text-sm text-brand-dark">Pièces jointes</h4>
+                        <p class="text-xs text-gray-500 mt-1">Joignez vos diplômes et pièces d'identité.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200">
+                        <span class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full font-bold flex items-center justify-center mx-auto mb-3">5</span>
+                        <h4 class="font-bold text-sm text-brand-dark">Confirmation</h4>
+                        <p class="text-xs text-gray-500 mt-1">Obtenez votre numéro de dossier unique.</p>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-gray-200">
+                    <h3 class="font-heading font-extrabold text-2xl text-brand-dark mb-6 border-b border-gray-100 pb-4">
+                        Formulaire de Candidature en Ligne
+                    </h3>
+
+                    <form id="candidatureForm" onsubmit="submitCandidature(event)" class="space-y-8">
+                        <!-- Personal Info -->
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-sky uppercase tracking-wider mb-4"><i class="fa-solid fa-user mr-2"></i> Informations Personnelles</h4>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nom *</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky" placeholder="KOUASSI">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Prénoms *</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky" placeholder="Jean-Marc">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Date de Naissance *</label>
+                                    <input type="date" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Sexe *</label>
+                                    <select required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                                        <option value="">Sélectionnez</option>
+                                        <option value="M">Masculin</option>
+                                        <option value="F">Féminin</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Téléphone *</label>
+                                    <input type="tel" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky" placeholder="+225 07 00 00 00 00">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Adresse Email *</label>
+                                    <input type="email" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky" placeholder="exemple@email.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Academic Info & Choice -->
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-sky uppercase tracking-wider mb-4"><i class="fa-solid fa-graduation-cap mr-2"></i> Choix de Formation & Parcours</h4>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Formation Souhaitée *</label>
+                                    <select id="candFiliereSelect" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                                        <option value="">Choisir une filière</option>
+                                        <!-- Dynamic options -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Dernier Diplôme Obtenu *</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky" placeholder="Ex: BAC C, BAC G2, BTS...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Uploads -->
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-sky uppercase tracking-wider mb-4"><i class="fa-solid fa-file-arrow-up mr-2"></i> Documents requis (PDF/JPG)</h4>
+                            <div class="p-4 bg-gray-50 border border-dashed border-gray-300 rounded-2xl text-center">
+                                <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-xs text-gray-600 mb-1">Sélectionnez la Pièce d'identité & le Relevé de notes</p>
+                                <input type="file" multiple class="text-xs text-gray-500">
+                            </div>
+                        </div>
+
+                        <!-- Validation checkbox -->
+                        <div class="flex items-start gap-2">
+                            <input type="checkbox" required id="consentCheck" class="mt-1">
+                            <label for="consentCheck" class="text-xs text-gray-600">J'atteste l'exactitude des informations fournies et j'accepte qu'elles soient traitées dans le cadre de ma candidature à ISATech.</label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-sky hover:bg-brand-hover text-brand-dark font-bold py-4 rounded-xl shadow-md transition text-base">
+                            Soumettre ma candidature
+                        </button>
+                    </form>
+
+                    <!-- Success Message Popup / Card -->
+                    <div id="candidatureSuccessCard" class="hidden mt-6 p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h4 class="font-heading font-extrabold text-xl text-emerald-900 mb-2">Candidature enregistrée avec succès !</h4>
+                        <p class="text-sm text-emerald-800 mb-4">Votre dossier a été soumis avec succès auprès de l'administration ISATech.</p>
+                        <div class="inline-block bg-white px-4 py-2 rounded-xl border border-emerald-200 font-mono text-sm text-brand-dark font-bold mb-4">
+                            Numéro de Dossier : <span id="generatedDossierNum" class="text-brand-sky">ISA-2026-000000</span>
+                        </div>
+                        <p class="text-xs text-emerald-700">Conservez précieusement ce numéro pour le suivi de votre candidature.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 6: VIE ÉTUDIANTE (LIFE) -->
+        <!-- ================================================= -->
+        <div id="sec-life" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Épanouissement & Campus</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">La Vie Étudiante à ISATech</h1>
+                    <p class="text-gray-600">Un environnement stimulant favorisant les échanges, la créativité et les initiatives collectives.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-brand-dark mb-2">Clubs & Associations</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Club Informatique, Club Débat, Bureau Des Étudiants (BDE). Participez activement aux projets de campus.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-brand-dark mb-2">Événements & Hackathons</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Compétitions technologiques, journées de l'excellence, séminaires et rencontres professionnelles.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-brand-dark mb-2">Infrastructures & Cadre</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Salles informatiques équipées, connexion haut débit, espaces de détente et de travail collaboratif.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 7: ACTUALITÉS & ÉVÉNEMENTS (NEWS) -->
+        <!-- ================================================= -->
+        <div id="sec-news" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Publications & Agenda</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">Actualités & Événements</h1>
+                    <p class="text-gray-600">Restez informés de la vie académique et des temps forts d'ISATech.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8" id="newsContainer">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 8: CONTACT -->
+        <!-- ================================================= -->
+        <div id="sec-contact" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-brand-sky font-semibold text-sm uppercase tracking-wider">Échangez avec nous</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-brand-dark mt-2 mb-4">Contact & Localisation</h1>
+                    <p class="text-gray-600">Notre équipe est disponible pour répondre à toutes vos questions.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Coordonnées -->
+                    <div class="bg-brand-dark text-white p-8 rounded-3xl space-y-6">
+                        <h3 class="font-heading font-bold text-2xl mb-4">ISATech Abidjan</h3>
+                        <div class="space-y-4 text-sm text-gray-300">
+                            <p class="flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot text-brand-sky text-lg mt-0.5"></i>
+                                <span>Côte d'Ivoire, Abidjan, Koumassi<br><span class="text-xs text-gray-400">[Localisation exacte à completer]</span></span>
+                            </p>
+                            <p class="flex items-center gap-3">
+                                <i class="fa-solid fa-phone text-brand-sky text-lg"></i>
+                                <span>[Numéro de téléphone officiel]</span>
+                            </p>
+                            <p class="flex items-center gap-3">
+                                <i class="fa-solid fa-envelope text-brand-sky text-lg"></i>
+                                <span>[Email officiel de contact]</span>
+                            </p>
+                            <p class="flex items-center gap-3">
+                                <i class="fa-solid fa-clock text-brand-sky text-lg"></i>
+                                <span>Lundi - Vendredi: 08h00 - 18h00</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-2 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        <h3 class="font-heading font-bold text-xl text-brand-dark mb-6">Envoyer un message</h3>
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nom complet *</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email *</label>
+                                    <input type="email" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Sujet *</label>
+                                <input type="text" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Message *</label>
+                                <textarea rows="4" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-sky"></textarea>
+                            </div>
+                            <button type="submit" class="bg-brand-sky hover:bg-brand-hover text-brand-dark font-bold px-6 py-3 rounded-xl shadow-sm transition">
+                                Envoyer le message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- SECTION 9: ESPACE ADMINISTRATION (/admin) -->
+        <!-- ================================================= -->
+        <div id="sec-admin" class="view-section hidden py-10 bg-gray-100 min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <!-- Admin Header -->
+                <div class="bg-brand-dark text-white p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-lg">
+                    <div>
+                        <span class="text-brand-sky text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-lock mr-1"></i> Dashboard Sécurisé</span>
+                        <h1 class="font-heading font-extrabold text-2xl sm:text-3xl mt-1">Administration ISATech</h1>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleAdminView()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-xs font-semibold transition">
+                            <i class="fa-solid fa-eye mr-1"></i> Mode Visiteur Public
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="flex border-b border-gray-300 gap-2 overflow-x-auto">
+                    <button onclick="switchAdminTab('candidatures')" id="tab-btn-candidatures" class="admin-tab-btn active px-5 py-2.5 font-bold text-sm text-brand-sky border-b-2 border-brand-sky">
+                        Candidatures (<span id="adminCandCount">0</span>)
+                    </button>
+                    <button onclick="switchAdminTab('formations')" id="tab-btn-formations" class="admin-tab-btn px-5 py-2.5 font-bold text-sm text-gray-500 hover:text-brand-dark">
+                        Gestion Filières (8)
+                    </button>
+                </div>
+
+                <!-- Admin Tab Content 1: Candidatures Table -->
+                <div id="admin-tab-candidatures" class="admin-tab-content space-y-4">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                            <h3 class="font-bold text-brand-dark text-sm">Liste des Candidatures Récentes</h3>
+                            <button onclick="exportCandidaturesCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-semibold transition">
+                                <i class="fa-solid fa-file-excel mr-1"></i> Exporter CSV
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-gray-100 text-gray-600 uppercase font-semibold">
+                                    <tr>
+                                        <th class="p-3">N° Dossier</th>
+                                        <th class="p-3">Candidat</th>
+                                        <th class="p-3">Filière</th>
+                                        <th class="p-3">Contact</th>
+                                        <th class="p-3">Statut</th>
+                                        <th class="p-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminCandidaturesTbody" class="divide-y divide-gray-100">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Tab Content 2: CRUD Formations -->
+                <div id="admin-tab-formations" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-brand-dark">Gestion du Catalogue Filières</h3>
+                            <p class="text-xs text-gray-500">Ajouter, modifier ou publier des programmes d'études</p>
+                        </div>
+                        <button onclick="openAddFiliereModal()" class="bg-brand-sky hover:bg-brand-hover text-brand-dark px-4 py-2 rounded-xl text-xs font-bold transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Nouvelle Filière
+                        </button>
+                    </div>
+
+                    <div id="adminFilieresList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Dynamic Cards -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- CHATBOT INTEGRATION -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleChatbot()" class="w-14 h-14 bg-brand-sky text-brand-dark rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 transition">
+            <i class="fa-solid fa-headset"></i>
+        </button>
+
+        <div id="chatbotBox" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-[420px]">
+            <div class="bg-brand-dark text-white p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-sky text-brand-dark rounded-full flex items-center justify-center font-bold text-xs">iT</div>
+                    <div>
+                        <h4 class="font-bold text-sm">Assistant ISATech</h4>
+                        <span class="text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> En ligne</span>
+                    </div>
+                </div>
+                <button onclick="toggleChatbot()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="chatMessages" class="flex-grow p-4 overflow-y-auto space-y-3 text-xs">
+                <div class="bg-gray-100 p-3 rounded-2xl max-w-[85%] text-gray-800">
+                    Bonjour ! Je suis l'assistant virtuel d'ISATech. Comment puis-je vous aider ? (ex: "Quelle filière en informatique ?", "Comment s'inscrire ?")
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-gray-200 flex gap-2">
+                <input type="text" id="chatInput" onkeydown="if(event.key === 'Enter') sendChatMessage()" placeholder="Posez votre question..." class="flex-grow text-xs px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-sky">
+                <button onclick="sendChatMessage()" class="bg-brand-sky text-brand-dark px-3 py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-navy text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                <!-- Col 1: About -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-sky text-brand-dark rounded-xl flex items-center justify-center font-bold text-xl">iT</div>
+                        <span class="font-heading font-extrabold text-2xl">ISATech</span>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed max-w-sm">
+                        Institut Supérieur d’Application et de Technologie. Établissement d'enseignement supérieur fondé en 2001 à Abidjan, Koumassi.
+                    </p>
+                    <p class="text-brand-sky text-xs font-semibold italic">« L’excellence demeure notre credo »</p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-heading font-bold text-sm text-white mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#" onclick="showSection('home')" class="hover:text-brand-sky transition">Accueil</a></li>
+                        <li><a href="#" onclick="showSection('about')" class="hover:text-brand-sky transition">À Propos d'ISATech</a></li>
+                        <li><a href="#" onclick="showSection('formations')" class="hover:text-brand-sky transition">Catalogue des Filières</a></li>
+                        <li><a href="#" onclick="showSection('admission')" class="hover:text-brand-sky transition">Admissions</a></li>
+                        <li><a href="#" onclick="showSection('life')" class="hover:text-brand-sky transition">Vie Étudiante</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Filières -->
+                <div>
+                    <h4 class="font-heading font-bold text-sm text-white mb-4">8 Filières</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#" onclick="openFiliereDetail('IDA')" class="hover:text-brand-sky transition">IDA - Informatique</a></li>
+                        <li><a href="#" onclick="openFiliereDetail('FCGE')" class="hover:text-brand-sky transition">FCGE - Finance & Comptabilité</a></li>
+                        <li><a href="#" onclick="openFiliereDetail('GEC')" class="hover:text-brand-sky transition">GEC - Gestion Commerciale</a></li>
+                        <li><a href="#" onclick="openFiliereDetail('RIT')" class="hover:text-brand-sky transition">RIT - Réseaux & Telecom</a></li>
+                        <li><a href="#" onclick="showSection('formations')" class="text-brand-sky hover:underline transition">Voir toutes les 8 filières →</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div>
+                    <h4 class="font-heading font-bold text-sm text-white mb-4">Contact & Accès</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><i class="fa-solid fa-location-dot text-brand-sky mr-1"></i> Abidjan, Koumassi</li>
+                        <li><i class="fa-solid fa-phone text-brand-sky mr-1"></i> [À COMPLÉTER]</li>
+                        <li><i class="fa-solid fa-envelope text-brand-sky mr-1"></i> [À COMPLÉTER]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p>© 2026 ISATech — Institut Supérieur d’Application et de Technologie. Tous droits réservés.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-400">Mentions Légales</a>
+                    <a href="#" class="hover:text-gray-400">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & DATABASE MOCK -->
+    <script>
+        // ==========================================
+        // OFFICIAL 8 FILIERES DATASTORE
+        // ==========================================
+        let filieresData = [
+            {
+                id: 1,
+                code: 'IDA',
+                nom: "Informatique — Développement d'Applications",
+                slug: 'ida',
+                domaine: 'Informatique & Technologies',
+                description_courte: "Conception, développement, déploiement et maintenance de solutions informatiques modernes.",
+                description_complete: "La filière IDA forme des informaticiens capables d'analyser les besoins d'une entreprise, de concevoir des architectures applicatives web et mobiles, d'administrer des bases de données et d'assurer le suivi logiciel.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans à 3 ans',
+                image: 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=800&auto=format&fit=crop',
+                competences: ['Algorithmique', 'Programmation (Python, Java, JS)', 'Développement Web (HTML/CSS/React)', 'Bases de données SQL', 'Conception logicielle'],
+                programme: ['Génie Logiciel', 'Bases de Données', 'Développement Web & Mobile', 'Réseaux & Système', 'Mathématiques Appliquées', 'Anglais Technique'],
+                debouches: ['Développeur Web', "Développeur d'Applications", 'Analyste-Programmeur', 'Technicien Informatique', 'Assistant Chef de Projet IT'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 2,
+                code: 'FCGE',
+                nom: "Finance, Comptabilité et Gestion",
+                slug: 'fcge',
+                domaine: 'Finance & Gestion',
+                description_courte: "Analyse, gestion et contrôle des opérations financières et comptables d'entreprise.",
+                description_complete: "La filière FCGE prépare les étudiants aux métiers de la comptabilité, de la gestion financière, du contrôle budgétaire et de la fiscalité d'entreprise.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans à 3 ans',
+                image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop',
+                competences: ['Comptabilité générale & analytique', 'Gestion financière & trésorerie', 'Fiscalité des entreprises', 'Analyse financière', 'Tableaux de bord Excel'],
+                programme: ['Comptabilité Générale', 'Gestion Financière', 'Fiscalité', 'Droit des Affaires', 'Contrôle de Gestion', 'Logiciels Comptables'],
+                debouches: ['Comptable', 'Assistant Financier', 'Gestionnaire', 'Contrôleur de Gestion Junior', 'Assistant Administratif'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 3,
+                code: 'GEC',
+                nom: "Gestion Commerciale",
+                slug: 'gec',
+                domaine: 'Commerce & Management',
+                description_courte: "Développement commercial, négociation, gestion de la relation client et stratégie marketing.",
+                description_complete: "Forme des professionnels de la vente et du marketing capables de prospecter, de négocier et de gérer des portefeuilles clients complexes.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans à 3 ans',
+                image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop',
+                competences: ['Techniques de vente & négociation', 'Prospection commerciale', 'Marketing digital & classique', 'Gestion de la relation client (CRM)', 'Management d\'équipe'],
+                programme: ['Marketing Stratégique', 'Techniques de Vente', 'Communication Commerciale', 'Négociation', 'Droit Commercial'],
+                debouches: ['Attaché Commercial', 'Chargé de Clientèle', 'Conseiller Commercial', 'Responsable Ventes Junior', 'Business Developer'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 4,
+                code: 'CV',
+                nom: "Communication Visuelle",
+                slug: 'cv',
+                domaine: 'Communication & Design',
+                description_courte: "Création graphique, branding, identité visuelle et conception de supports imprimés et numériques.",
+                description_complete: "La filière CV associe créativité et maîtrise des outils PAO pour concevoir des identités visuelles percutantes et des campagnes de communication graphiques.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans',
+                image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800&auto=format&fit=crop',
+                competences: ['Design Graphique (Photoshop, Illustrator)', 'Branding & Identité visuelle', 'Typographie & Layout', 'Communication digitale', 'UI Design'],
+                programme: ['Infographie PAO', 'Chaîne Graphique', 'Histoire de l\'Art & Design', 'Studio Créatif', 'Photographie & Retouche'],
+                debouches: ['Graphiste', 'Designer Graphique', 'Infographiste', 'Directeur Artistique Junior', 'Créateur de Contenu Visuel'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 5,
+                code: 'TH',
+                nom: "Tourisme et Hôtellerie",
+                slug: 'th',
+                domaine: 'Tourisme & Hôtellerie',
+                description_courte: "Métiers de l'accueil, de la réception, de la gestion hôtelière et du tourisme international.",
+                description_complete: "Prépare aux métiers exigeants de l'accueil touristique, du service hôtelier, de la gestion des réservations et de l'événementiel.",
+                niveau: 'BTS',
+                duree: '2 ans',
+                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop',
+                competences: ['Accueil & Réception', 'Gestion hôtelière', 'Gestion des réservations', 'Communication interculturelle', 'Organisation d\'événements'],
+                programme: ['Techniques d\'Accueil', 'Gestion Hôtelière', 'Géographie Touristique', 'Langues Étrangères', 'Marketing Touristique'],
+                debouches: ['Réceptionniste', 'Assistant Hôtelier', 'Agent de Réservation', 'Conseiller en Voyages', 'Assistant Événementiel'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 6,
+                code: 'RHCOM',
+                nom: "Ressources Humaines et Communication",
+                slug: 'rhcom',
+                domaine: 'Ressources Humaines',
+                description_courte: "Gestion du personnel, recrutement, administration RH et communication interne/externe.",
+                description_complete: "Forme des spécialistes capables d'assurer le recrutement, la paie, le développement des compétences et la communication au sein des organisations.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans à 3 ans',
+                image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop',
+                competences: ['Gestion administrative des RH', 'Processus de Recrutement', 'Communication d\'entreprise', 'Gestion des carrières', 'Droit du Travail'],
+                programme: ['Administration du Personnel', 'Communication Interne', 'Droit du Travail', 'GPEC', 'Techniques d\'Entretien'],
+                debouches: ['Assistant RH', 'Chargé de Recrutement Junior', 'Assistant Communication', 'Gestionnaire de Paie Junior'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 7,
+                code: 'AD',
+                nom: "Assistanat de Direction",
+                slug: 'ad',
+                domaine: 'Administration',
+                description_courte: "Accompagnement administratif, organisation d'agenda et gestion documentaire des dirigeants.",
+                description_complete: "Forme des collaborateurs clés sachant coordonner les activités d'une direction, gérer les flux d'informations et l'organisation logistique.",
+                niveau: 'BTS',
+                duree: '2 ans',
+                image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
+                competences: ['Bureautique avancée', 'Organisation d\'agenda & réunions', 'Rédaction administrative', 'Gestion documentaire', 'Accueil d\'excellence'],
+                programme: ['Techniques de Secrétariat', 'Bureautique Word/Excel/Powerpoint', 'Correspondance Administrative', 'Organisation', 'Anglais Commercial'],
+                debouches: ['Assistant de Direction', 'Secrétaire de Direction', 'Office Manager Junior', 'Assistant Administratif'],
+                status: 'PUBLISHED'
+            },
+            {
+                id: 8,
+                code: 'RIT',
+                nom: "Réseau Informatique et Télécommunications",
+                slug: 'rit',
+                domaine: 'Réseaux & Télécommunications',
+                description_courte: "Installation, administration, maintenance et sécurisation des réseaux et serveurs.",
+                description_complete: "La filière RIT forme des techniciens qualifiés pour configurer les équipements réseaux (routeurs, switches), administrer les serveurs et protéger les données.",
+                niveau: 'BTS / Licence Pro',
+                duree: '2 ans à 3 ans',
+                image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop',
+                competences: ['Architecture TCP/IP', 'Configuration Cisco/Mikrotik', 'Administration Linux & Windows Server', 'Sécurité réseau', 'Câblage & Fibre optique'],
+                programme: ['Réseaux Informatiques', 'Télécommunications', 'Sécurité des Systèmes', 'Administration Linux/Windows', 'Maintenance Matérielle'],
+                debouches: ['Administrateur Réseau Junior', 'Technicien Réseau & Telecom', 'Technicien Support IT', 'Assistant Cybersécurité'],
+                status: 'PUBLISHED'
+            }
+        ];
+
+        // MOCK CANDIDATURES
+        let candidaturesList = [
+            { dossier: 'ISA-2026-000101', nom: 'KOUASSI Jean', filiere: 'IDA', phone: '+225 0701020304', status: 'Nouveau' },
+            { dossier: 'ISA-2026-000102', nom: 'BAH Aminata', filiere: 'FCGE', phone: '+225 0505060708', status: 'En cours d\'étude' }
+        ];
+
+        // NEWS MOCK
+        let newsList = [
+            { title: "Ouverture des Inscriptions 2026-2027", date: "15 Mai 2026", cat: "Admission", desc: "Les formulaires de candidature pour toutes les 8 filières sont disponibles en ligne.", image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" },
+            { title: "Semaine du Hackathon Informatique", date: "28 Avril 2026", cat: "Événement", desc: "Les étudiants en IDA et RIT s'affrontent sur un projet de développement web en 48h.", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" },
+            { title: "Atelier Pratique en Finance & Comptabilité", date: "10 Avril 2026", cat: "Formation", desc: "Immersion pratique sur les logiciels de gestion avec nos experts partenaires.", image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" }
+        ];
+
+        let currentCategoryFilter = 'ALL';
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHomeFilieres();
+            renderFullFilieres();
+            populateCandidatureDropdown();
+            renderNews();
+            renderAdminData();
+            initCarousel();
+        });
+
+        // ==========================================
+        // NAVIGATION CONTROLLER
+        // ==========================================
+        function showSection(sectionId) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById('sec-' + sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Active State on Nav
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('nav-' + sectionId);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // ==========================================
+        // CAROUSEL LOGIC
+        // ==========================================
+        let currentSlide = 0;
+        function initCarousel() {
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % 3;
+                setSlide(currentSlide);
+            }, 6000);
+        }
+
+        function setSlide(index) {
+            currentSlide = index;
+            const slides = document.querySelectorAll('#carouselSlides .hero-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+
+            slides.forEach((slide, idx) => {
+                if (idx === index) {
+                    slide.classList.remove('opacity-0');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.remove('opacity-100');
+                    slide.classList.add('opacity-0');
+                }
+            });
+
+            dots.forEach((dot, idx) => {
+                if (idx === index) {
+                    dot.classList.remove('bg-white/40');
+                    dot.classList.add('bg-brand-sky');
+                } else {
+                    dot.classList.remove('bg-brand-sky');
+                    dot.classList.add('bg-white/40');
+                }
+            });
+        }
+
+        // ==========================================
+        // RENDER FILIERES (CARDS)
+        // ==========================================
+        function createFiliereCardHTML(item) {
+            return `
+                <div class="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group">
+                    <div class="relative h-44 overflow-hidden">
+                        <img src="${item.image}" alt="${item.nom}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-dark text-brand-sky font-mono font-bold text-xs px-2.5 py-1 rounded-md shadow">
+                            ${item.code}
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 text-brand-dark text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                            ${item.niveau}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-brand-sky font-bold block mb-1">${item.domaine}</span>
+                            <h3 class="font-heading font-bold text-base text-brand-dark leading-snug group-hover:text-brand-sky transition">${item.nom}</h3>
+                            <p class="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">${item.description_courte}</p>
+                        </div>
+
+                        <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                            <span class="text-[11px] text-gray-400 font-medium"><i class="fa-solid fa-clock text-brand-sky mr-1"></i> ${item.duree}</span>
+                            <button onclick="openFiliereDetail('${item.code}')" class="text-xs font-bold text-brand-dark group-hover:text-brand-sky flex items-center gap-1 transition">
+                                Découvrir <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHomeFilieres() {
+            const grid = document.getElementById('homeFilieresGrid');
+            if (grid) {
+                grid.innerHTML = filieresData.map(createFiliereCardHTML).join('');
+            }
+        }
+
+        function renderFullFilieres() {
+            const grid = document.getElementById('fullFilieresGrid');
+            if (!grid) return;
+
+            let filtered = filieresData;
+            if (currentCategoryFilter !== 'ALL') {
+                filtered = filtered.filter(f => f.domaine === currentCategoryFilter);
+            }
+
+            const searchVal = document.getElementById('filiereSearchInput')?.value.toLowerCase();
+            if (searchVal) {
+                filtered = filtered.filter(f => f.nom.toLowerCase().includes(searchVal) || f.code.toLowerCase().includes(searchVal));
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">Aucune filière ne correspond à votre recherche.</p>`;
+            } else {
+                grid.innerHTML = filtered.map(createFiliereCardHTML).join('');
+            }
+        }
+
+        function setFilterCategory(cat) {
+            currentCategoryFilter = cat;
+            document.querySelectorAll('#filterCategoryButtons .cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-dark', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-gray-100', 'text-gray-700');
+            event.target.classList.add('bg-brand-dark', 'text-white');
+            renderFullFilieres();
+        }
+
+        function filterFilieres() {
+            renderFullFilieres();
+        }
+
+        // ==========================================
+        // FILIERE DETAIL PAGE
+        // ==========================================
+        function openFiliereDetail(code) {
+            const item = filieresData.find(f => f.code === code);
+            if (!item) return;
+
+            const container = document.getElementById('filiereDetailContent');
+            container.innerHTML = `
+                <div class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm">
+                    <!-- Banner -->
+                    <div class="relative h-64 sm:h-80 bg-brand-dark">
+                        <img src="${item.image}" class="w-full h-full object-cover opacity-40">
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-brand-sky text-brand-dark font-mono font-bold text-sm px-3 py-1 rounded-md">${item.code}</span>
+                                <span class="bg-white/20 text-xs px-3 py-1 rounded-full backdrop-blur-sm">${item.domaine}</span>
+                            </div>
+                            <h1 class="font-heading font-extrabold text-2xl sm:text-4xl">${item.nom}</h1>
+                        </div>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-8 sm:p-12 space-y-10">
+                        <!-- Key Information Bar -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 text-xs">
+                            <div><span class="text-gray-400 block">Niveau :</span><strong class="text-brand-dark text-sm">${item.niveau}</strong></div>
+                            <div><span class="text-gray-400 block">Durée :</span><strong class="text-brand-dark text-sm">${item.duree}</strong></div>
+                            <div><span class="text-gray-400 block">Diplôme :</span><strong class="text-brand-dark text-sm">BTS / Homologué</strong></div>
+                            <div><span class="text-gray-400 block">Campus :</span><strong class="text-brand-dark text-sm">Koumassi, Abidjan</strong></div>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Description Générale</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm sm:text-base">${item.description_complete}</p>
+                        </div>
+
+                        <!-- Competences & Programme -->
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <h4 class="font-bold text-brand-dark mb-3 text-sm uppercase text-brand-sky"><i class="fa-solid fa-check-circle mr-2"></i> Compétences visées</h4>
+                                <ul class="space-y-2 text-xs text-gray-700">
+                                    ${item.competences.map(c => `<li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-sky"></i> ${c}</li>`).join('')}
+                                </ul>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <h4 class="font-bold text-brand-dark mb-3 text-sm uppercase text-brand-sky"><i class="fa-solid fa-book-open mr-2"></i> Modules Pédagogiques Clés</h4>
+                                <ul class="space-y-2 text-xs text-gray-700">
+                                    ${item.programme.map(p => `<li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-sky"></i> ${p}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Debouches -->
+                        <div>
+                            <h3 class="font-heading font-bold text-xl text-brand-dark mb-3">Débouchés Professionnels</h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${item.debouches.map(d => `<span class="bg-brand-sky/10 text-brand-dark font-medium text-xs px-3.5 py-1.5 rounded-xl border border-brand-sky/20"><i class="fa-solid fa-briefcase text-brand-sky mr-1.5"></i> ${d}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <!-- CTA Candidater -->
+                        <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h4 class="font-bold text-brand-dark text-base">Intéressé par cette filière ?</h4>
+                                <p class="text-xs text-gray-500">Déposez votre dossier de candidature directement en ligne.</p>
+                            </div>
+                            <button onclick="prepareCandidatureFor('${item.code}')" class="bg-brand-sky hover:bg-brand-hover text-brand-dark font-bold px-8 py-3.5 rounded-xl shadow-md transition">
+                                Candidater à cette formation <i class="fa-solid fa-paper-plane ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            showSection('filiere-detail');
+        }
+
+        function prepareCandidatureFor(code) {
+            showSection('admission');
+            const select = document.getElementById('candFiliereSelect');
+            if (select) select.value = code;
+        }
+
+        // ==========================================
+        // CANDIDATURE FORM SUBMISSION
+        // ==========================================
+        function populateCandidatureDropdown() {
+            const select = document.getElementById('candFiliereSelect');
+            if (!select) return;
+            select.innerHTML = '<option value="">Choisir une filière</option>' +
+                filieresData.map(f => `<option value="${f.code}">${f.code} - ${f.nom}</option>`).join('');
+        }
+
+        function submitCandidature(e) {
+            e.preventDefault();
+            const dossierNum = 'ISA-2026-' + Math.floor(100000 + Math.random() * 900000);
+            
+            // Collect form data
+            const form = e.target;
+            const nom = form.querySelector('input[placeholder="KOUASSI"]').value + ' ' + form.querySelector('input[placeholder="Jean-Marc"]').value;
+            const filiere = document.getElementById('candFiliereSelect').value;
+            const phone = form.querySelector('input[placeholder="+225 07 00 00 00 00"]').value;
+
+            candidaturesList.unshift({ dossier: dossierNum, nom: nom, filiere: filiere, phone: phone, status: 'Nouveau' });
+
+            document.getElementById('generatedDossierNum').innerText = dossierNum;
+            document.getElementById('candidatureForm').reset();
+            document.getElementById('candidatureSuccessCard').classList.remove('hidden');
+
+            renderAdminData();
+        }
+
+        // ==========================================
+        // NEWS RENDER
+        // ==========================================
+        function renderNews() {
+            const container = document.getElementById('newsContainer');
+            if (!container) return;
+            container.innerHTML = newsList.map(n => `
+                <div class="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+                    <img src="${n.image}" class="w-full h-44 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center text-[10px] text-gray-400 mb-2">
+                            <span class="bg-brand-sky/20 text-brand-dark px-2 py-0.5 rounded font-bold">${n.cat}</span>
+                            <span>${n.date}</span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark mb-2">${n.title}</h3>
+                        <p class="text-xs text-gray-600">${n.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // GLOBAL SEARCH MODAL
+        // ==========================================
+        function openSearchModal() {
+            document.getElementById('searchModal').classList.remove('hidden');
+            document.getElementById('globalSearchInput').focus();
+        }
+
+        function closeSearchModal() {
+            document.getElementById('searchModal').classList.add('hidden');
+        }
+
+        function performGlobalSearch() {
+            const q = document.getElementById('globalSearchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            if (!q) {
+                results.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Saisissez un mot-clé (ex: "IDA", "Comptabilité")</p>`;
+                return;
+            }
+
+            const matches = filieresData.filter(f => f.nom.toLowerCase().includes(q) || f.code.toLowerCase().includes(q) || f.domaine.toLowerCase().includes(q));
+
+            if (matches.length === 0) {
+                results.innerHTML = `<p class="text-xs text-gray-500 text-center py-4">Aucun résultat trouvé pour "${q}"</p>`;
+            } else {
+                results.innerHTML = matches.map(m => `
+                    <div onclick="openFiliereDetail('${m.code}'); closeSearchModal();" class="p-3 bg-gray-50 hover:bg-brand-sky/10 rounded-xl cursor-pointer flex justify-between items-center transition">
+                        <div>
+                            <span class="font-bold text-xs text-brand-dark">${m.code} - ${m.nom}</span>
+                            <span class="block text-[10px] text-gray-400">${m.domaine}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ==========================================
+        // CHATBOT LOGIC
+        // ==========================================
+        function toggleChatbot() {
+            document.getElementById('chatbotBox').classList.toggle('hidden');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const box = document.getElementById('chatMessages');
+            box.innerHTML += `<div class="bg-brand-sky/20 p-3 rounded-2xl max-w-[85%] text-brand-dark font-medium ml-auto">${msg}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                let reply = "Pour toute information sur l'admission, vous pouvez soumettre votre dossier sur la page Admission ou contacter notre secrétariat.";
+                if (msg.toLowerCase().includes('ida') || msg.toLowerCase().includes('informatique')) {
+                    reply = "La filière IDA (Informatique Développement d'Applications) forme sur 2 ans au développement web, logiciel et bases de données.";
+                } else if (msg.toLowerCase().includes('frais') || msg.toLowerCase().includes('prix')) {
+                    reply = "Les frais de scolarité dépendent du niveau d'études. Veuillez consulter le secrétariat ou contacter le [Numéro Officiel].";
+                }
+                box.innerHTML += `<div class="bg-gray-100 p-3 rounded-2xl max-w-[85%] text-gray-800">${reply}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 600);
+        }
+
+        // ==========================================
+        // ADMIN DASHBOARD & CRUD
+        // ==========================================
+        function toggleAdminView() {
+            const secAdmin = document.getElementById('sec-admin');
+            if (secAdmin.classList.contains('hidden')) {
+                showSection('admin');
+                document.getElementById('adminBtnText').innerText = 'Mode Public';
+            } else {
+                showSection('home');
+                document.getElementById('adminBtnText').innerText = 'Espace Admin';
+            }
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab-btn').forEach(b => {
+                b.classList.remove('active', 'text-brand-sky', 'border-b-2', 'border-brand-sky');
+                b.classList.add('text-gray-500');
+            });
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
+
+            const activeBtn = document.getElementById('tab-btn-' + tab);
+            activeBtn.classList.add('active', 'text-brand-sky', 'border-b-2', 'border-brand-sky');
+            document.getElementById('admin-tab-' + tab).classList.remove('hidden');
+        }
+
+        function renderAdminData() {
+            // Render Candidatures
+            document.getElementById('adminCandCount').innerText = candidaturesList.length;
+            const tbody = document.getElementById('adminCandidaturesTbody');
+            if (tbody) {
+                tbody.innerHTML = candidaturesList.map(c => `
+                    <tr>
+                        <td class="p-3 font-mono font-bold text-brand-dark">${c.dossier}</td>
+                        <td class="p-3 font-semibold text-gray-800">${c.nom}</td>
+                        <td class="p-3"><span class="bg-gray-100 px-2 py-0.5 rounded font-mono">${c.filiere}</span></td>
+                        <td class="p-3 text-gray-500">${c.phone}</td>
+                        <td class="p-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px] font-bold">${c.status}</span></td>
+                        <td class="p-3"><button onclick="alert('Consulter dossier ${c.dossier}')" class="text-brand-sky hover:underline font-semibold">Détails</button></td>
+                    </tr>
+                `).join('');
+            }
+
+            // Render Filieres List in Admin
+            const adminGrid = document.getElementById('adminFilieresList');
+            if (adminGrid) {
+                adminGrid.innerHTML = filieresData.map(f => `
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex justify-between items-center">
+                        <div>
+                            <span class="font-mono text-xs font-bold text-brand-sky">${f.code}</span>
+                            <h4 class="font-bold text-xs text-brand-dark">${f.nom}</h4>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openFiliereDetail('${f.code}')" class="p-1.5 text-gray-500 hover:text-brand-sky"><i class="fa-solid fa-eye"></i></button>
+                            <button onclick="alert('Modification filière ${f.code}')" class="p-1.5 text-gray-500 hover:text-emerald-600"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function exportCandidaturesCSV() {
+            alert("Export CSV des candidatures généré.");
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert("Votre message a été transmis à l'administration d'ISATech.");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
